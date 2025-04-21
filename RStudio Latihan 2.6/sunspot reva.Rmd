@@ -1,0 +1,27 @@
+---
+title: "sunspot.month"
+author: "Reva Anwar"
+date: "2025-04-20"
+output: html_document
+---
+
+```{r}
+url <- "C:\\Users\\HP\\Downloads\\monthly-sunspots.csv"
+sunspot_month <- read.csv(url)
+```
+
+```{r}
+sun_ts <- ts(sunspot_month$Sunspots, start = c(1749, 1),frequency=12)
+plot(sun_ts, main = "Sunspot Bulanan", ylab = "Jumlah", col="maroon")
+```
+```{r}
+sun_decomp <- decompose(sun_ts)
+plot(sun_decomp)
+```
+
+```{r}
+fit_arima <- auto.arima(sun_ts)
+summary(fit_arima)
+forecast_arima <- forecast(fit_arima, h = 60)
+plot(forecast_arima, main = "Prediksi Bintik Matahari 5 Tahun ke Depan", ylab = "Jumlah Sunspot")
+```

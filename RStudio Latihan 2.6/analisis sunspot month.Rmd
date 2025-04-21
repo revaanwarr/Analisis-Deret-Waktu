@@ -1,0 +1,27 @@
+---
+title: "Analisis Data Sunspot Bulanan"
+author: "Reva Anwar"
+date: "2025-04-19"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+# Membaca data dari URL
+url <- "https://raw.githubusercontent.com/jbrownlee/Datasets/master/monthly-sunspots.csv"
+sunspot_month <- read.csv(url)
+
+# Tampilkan beberapa data awal
+head(sunspot_month)
+
+# Karena ini bukan dataset built-in, fungsi help() tidak bisa digunakan.
+# Kita lihat struktur data manual.
+str(sunspot_month)
+summary(sunspot_month)
+
+# Ubah ke bentuk time series
+sun_ts <- ts(sunspot_month$Sunspots, start = c(1749, 1), frequency = 12)
+
+# Plot deret waktu
+plot(sun_ts, main = "Jumlah Bintik Matahari Bulanan", ylab = "Jumlah Sunspot", xlab = "Tahun")
